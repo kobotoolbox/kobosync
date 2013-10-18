@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<shortcuts>
+	<programGroup defaultName="Other/Kobo/" location="applications" />
+	<shortcut name="Kobo Post Processor" programGroup="yes"
+		desktop="no" applications="no" startMenu="no" startup="no"
+		workingDirectory="$INSTALL_PATH"
+		commandLine="${JAVA_HOME}${FILE_SEPARATOR}bin${FILE_SEPARATOR}java -jar ${INSTALL_PATH}${FILE_SEPARATOR}${APP_NAME}_${APP_VER}.jar"
+		initialState="normal" terminal="false"
+		iconFile="$INSTALL_PATH/res/launcher-kobo-32.png" type="Application"
+		encoding="UTF-8" createForAll="true" Categories="Application;Utility;"
+		description="Launch the Kobo Post Processor">
+	</shortcut>
+	<shortcut name="Kobo Post Processor Launcher" programGroup="no"
+		desktop="yes" applications="no" startMenu="no" startup="no"
+		workingDirectory="$INSTALL_PATH"
+		commandLine="${JAVA_HOME}${FILE_SEPARATOR}bin${FILE_SEPARATOR}java -jar ${INSTALL_PATH}${FILE_SEPARATOR}${APP_NAME}_${APP_VER}.jar"
+		initialState="normal" terminal="false"
+		iconFile="$INSTALL_PATH/res/launcher-kobo-32.png" type="Application"
+		encoding="UTF-8" createForAll="true" Categories="Application;Utility;"
+		description="Launch the Kobo Post Processor">
+	</shortcut>
+	<shortcut name="Kobo Post Processor Uninstaller" programGroup="yes"
+		desktop="no" applications="no" startMenu="no" startup="no"
+		workingDirectory="$INSTALL_PATH/Uninstaller"
+		commandLine="${JAVA_HOME}${FILE_SEPARATOR}bin${FILE_SEPARATOR}java -jar ${INSTALL_PATH}${FILE_SEPARATOR}Uninstaller${FILE_SEPARATOR}uninstaller.jar"
+		initialState="normal" iconFile="trashcan_full" iconIndex="0" type="Application"
+		encoding="UTF-8" KdeSubstUID="true" KdeUsername="root" createForAll="false"
+		Categories="Application;Utility;" description="This uninstalls Kobo Post processor">
+	</shortcut>
+</shortcuts>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project name="kobo-postproc" default="package">
+	<property name="app.name" value="KoboSync" />
+	<property name="app.version" value="0.93" />
+
+	<property name="dist.dir" value="dist" />
+	<property name="src.dir" value="src" />
+	<property name="bin.dir" value="bin" />
+	<property name="lib.dir" value="lib" />
+	<property name="install.res.dir" value="install_res" />
+
+	<target name="init" description="set classpath and make needed directories">
+		<path id="classpath">
+			<fileset dir="lib/" includes="*.jar" />
+		</path>
+		<mkdir dir="bin/" />
+		<mkdir dir="dist/" />
+	</target>
+	<target name="clean" description="delete dist and bin directories">
+		<delete dir="dist/" />
+		<delete dir="bin/" />
+	</target>
+	<target name="compile" depends="clean,init" description="compile the source">
+		<javac srcdir="src/" destdir="bin/" excludes="test/**"
+			classpathref="classpath" debug="true" debuglevel="lines,source"
+			source="1.6" target="1.6" />
+	</target>
+	<target name="package" depends="compile" description="package into jar">
+		<jar destfile="${dist.dir}/${app.name}_${app.version}.jar">
+			<fileset dir="${src.dir}/" includes="**/*.properties" />
+			<fileset dir="${bin.dir}/" includes="**/*.class" />
+			<zipfileset src="./${lib.dir}/commons-io-1.4.jar"
+				includes="**/*.class" />
+			<zipfileset src="./${lib.dir}/SuperCSV-1.52.jar" includes="**/*.class" />
+			<manifest>
+				<attribute name="Main-Class"
+					value="org.oyrm.kobo.postproc.ui.KoboPostProcFrame" />
+			</manifest>
+		</jar>
+	</target>
+	<target name="build_installer" depends="package" description="package into installer">
+		<!-- Run installer build -->
+		<echo message="Running IzPack to build the installer..." />
+		<izpack input="${install.res.dir}/IzPack-definition.xml"
+			output="${dist.dir}/${app.name}_${app.version}-installer.jar"
+			installerType="standard" basedir="${basedir}" compression="deflate"
+			compressionlevel="9" />
+		<!-- Clean working directory -->
+		<echo message="Done." />
+	</target>
+	<target name="run-kobopp" depends="package">
+		<java jar="${dist.dir}/${app.name}_${app.version}.jar" fork="true" />
+	</target>
+	<!--
+		Allows us to use the IzPack Ant task, standalone-compiler.jar added to
+		Ant lib
+	-->
+	<taskdef name="izpack" classpath="lib/standalone-compiler.jar"
+		classname="com.izforge.izpack.ant.IzPackTask" />
+</project>

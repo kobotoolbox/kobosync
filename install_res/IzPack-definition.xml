@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<installation version="1.0">
+	<!--
+		Ant properties in this file can be referenced with @{}, otherwise use
+		variables below in installer files with ${}
+	-->
+
+	<info>
+		<appname>KoboSync</appname>
+		<appversion>0.93.1</appversion>
+		<url>http://open-data-kit.googlecode.com/</url>
+		<uninstaller name="uninstaller.jar" path="${INSTALL_PATH}/Uninstaller"
+			write="yes" />
+		<javaversion>1.6</javaversion>
+		<summarylogfilepath>$INSTALL_PATH/installinfo/Summary.htm</summarylogfilepath>
+	</info>
+
+	<!-- Define properties as variables -->
+	<variables>
+		<variable name="app.name" value="@{app.name}" />
+		<variable name="app.version" value="@{app.version}" />
+		<variable name="install.res.dir" value="@{install.res.dir}" />
+		<variable name="InstallerFrame.logfilePath" value="$INSTALL_PATH/My-install.log" />
+		<variable name="desktopshortcutcheckboxenabled" value="true" />
+	</variables>
+
+	<guiprefs width="600" height="480" resizable="no">
+		<laf name="kunststoff">
+			<os family="unix" />
+		</laf>
+		<modifier key="useHeadingPanel" value="yes" />
+		<modifier key="useHeadingForSummary" value="yes" />
+		<modifier key="headingImageOnLeft" value="yes" />
+		<modifier key="headingLineCount" value="2" />
+		<modifier key="headingFontSize" value="1.5" />
+		<modifier key="headingBackgroundColor" value="0x00ffffff" />
+		<modifier key="headingPanelCounter" value="text" />
+		<modifier key="headingPanelCounterPos" value="inHeading" />
+	</guiprefs>
+
+	<locale>
+		<langpack iso3="eng" />
+	</locale>
+
+	<resources>
+		<res id="shortcutSpec.xml" src="install_res/shortcut_specification.xml" />
+		<res id="Unix_shortcutSpec.xml" src="install_res/unix_shortcut_specification.xml" />
+		<res id="HTMLInfoPanel.readme" src="install_res/readme.html" />
+		<res id="HTMLInfoPanel.disclaimer" src="install_res/disclaimer.html" />
+		<res id="HTMLLicencePanel.licence" src="install_res/license.html" />
+		<res id="TargetPanel.dir.windows" src="install_res/installpath.txt" />
+	</resources>
+
+	<panels>
+		<panel classname="HelloPanel" />
+		<panel classname="HTMLInfoPanel" id="readme" />
+		<panel classname="HTMLInfoPanel" id="disclaimer" />
+		<panel classname="HTMLLicencePanel" id="licence" />
+		<panel classname="TargetPanel" id="dir.windows" />
+		<panel classname="PacksPanel" />
+		<panel classname="ShortcutPanel" />
+		<panel classname="SummaryPanel" />
+		<panel classname="InstallPanel" />
+		<panel classname="SimpleFinishPanel" />
+	</panels>
+
+	<packs>
+		<pack name="Core" required="yes">
+			<description>"Install KoboSync v0.93.1</description>
+			<file src="dist/KoboSync_0.93.1.jar" targetdir="$INSTALL_PATH"
+				override="asktrue" />
+			<file src="install_res/launcher-kobo-32.gif" targetdir="$INSTALL_PATH/res" />
+			<file src="install_res/launcher-kobo-32.png" targetdir="$INSTALL_PATH/res" />
+			<file src="install_res/launcher-kobo-32.ico" targetdir="$INSTALL_PATH/res" />
+			<file src="install_res/license.html" targetdir="$INSTALL_PATH" />
+			<file src="install_res/readme.html" targetdir="$INSTALL_PATH" />
+			<file src="install_res/disclaimer.html" targetdir="$INSTALL_PATH" />
+			<executable targetfile="$INSTALL_PATH/KoboSync_0.93.1.jar"
+				type="jar" stage="never" />
+		</pack>
+	</packs>
+
+	<listeners>
+		<listener installer="SummaryLoggerInstallerListener">
+			<os family="windows" />
+		</listener>
+	</listeners>
+
+	<!--
+		The native libraries to add. This is required for creating shortcuts
+		on Windows
+	-->
+	<native type="izpack" name="ShellLink.dll" />
+	<native type="izpack" name="ShellLink_x64.dll" />
+</installation>
